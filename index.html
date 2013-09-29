@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Blur!</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<script src="js/jquery-1.8.1.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/iscroll-probe.js"></script>
+		<script src="js/StackBlur.js" type="text/javascript"></script>
+		<script src="js/html2canvas.js" type="text/javascript"></script>
+		
+		<script>
+		
+		$(function(){
+			//$("article").clone().appendTo(".blurheader").addClass("blurred");
+			html2canvas($("body"), { 
+				onrendered: function(canvas) {
+			    //$("canvas").appendTo(".blurheader");
+			    $(".blurheader").append(canvas);
+			    $("canvas").attr("id","canvas");
+					stackBlurCanvasRGB('canvas', 0, 0, $("canvas").width(), $("canvas").height(), 20);
+				}
+				
+			
+			});
+			vv = setTimeout(function(){
+				$("header").show();
+				clearTimeout(vv);
+			},200)
+		})
+		$(window).scroll(function(){
+			//$("h1").text($(window).scrollTop());
+			//$("article.blurred").css("-webkit-transform", "translatey(-" + $(window).scrollTop() + "px)");
+			$("canvas").css("-webkit-transform", "translatey(-" + $(window).scrollTop() + "px)");
+		})
+		window.onresize = function(){
+			$("canvas").width($(window).width());
+		}
+		
+		$(document).bind('touchmove', function(){
+			//alert();
+			//$("h1").text($(document).scrollTop());
+			$("canvas").css("-webkit-transform", "translatey(-" + $(window).scrollTop() + "px)");
+		})
+		$(document).bind('touchend', function(){
+			//alert();
+			//$("h1").text($(document).scrollTop());
+			$("canvas").css("-webkit-transform", "translatey(-" + $(window).scrollTop() + "px)");
+		})
+		
+		</script>
+
+		<style>
+			*, *:after, *:before {
+			    -webkit-box-sizing: border-box;
+			    -moz-box-sizing: border-box;
+			    box-sizing: border-box;
+			}
+			body{
+				padding: 0;
+				margin: 0;
+				width: 100%;
+				height: 100%;
+				font-family: "HelveticaNeue-Light", sans-serif;
+				background: #ddd;
+			}
+			header, .blurheader{
+				background: rgba(255,255,255,.6);
+				height: 88px;
+				position: fixed;
+				width: 100%;
+				max-width: 1024px;
+				top: 0;
+				border-bottom:1px solid rgba(0,0,0,.2);
+				z-index: 10000000000;
+			}
+			header{
+				text-align: center;
+				display: none;
+				
+			}
+			header h1{
+				font-size: 24px;
+				font-family: "HelveticaNeue-Light", sans-serif;
+				font-weight: lighter;
+				line-height: 88px;
+				margin: 0;
+				padding: 0;
+			}
+			.blurheader{
+				background: transparent;
+				overflow: hidden;
+				z-index: 10000;
+				background: #fff;
+			}
+			section{
+				height: 100%;
+				position: relative;
+				display: block;
+				max-width: 1024px;
+				margin: 0 auto;
+				background: #fff;
+			}
+			article{
+				background: #fff;
+				width: 100%;
+				padding: 22px;
+				margin-top: 70px;
+				z-index: 100;	
+				font-size: 16px;
+				line-height: 150%;;		
+			}
+			#canvas{
+				opacity:1;
+			  	z-index: 100;
+			  	position: absolute;
+			  	display: block;
+			  	top: 3px;
+			}
+			article .pic{
+				margin: -22px -22px 11px -22px
+			}
+			article div.gd{
+				/*background: -webkit-linear-gradient(bottom, rgba(0,0,0,.8) 0% , rgba(0,0,0,0)  100%) no-repeat;
+				height:auto;
+				display: block;
+				margin: -150px -11px 50px -11px;
+				padding: 0 11px 20px 11px;
+				position: relative;
+				color: #fff;*/
+
+			}
+			article h1{
+				font-size: 32px;
+				font-family: sans-serif;
+				font-weight: bold;
+				margin: 0 0 11px 0;
+				padding: 0;
+				line-height: 32px;
+			}
+			article h3{
+				line-height: 24px;
+				font-size: 24px;
+				margin:0;
+				padding: 0;
+				font-family: "HelveticaNeue-Light", sans-serif;
+				font-weight: normal;
+			}
+			article img{
+				width: 100%;
+			}
+			
+			article p.first:first-letter{
+				display: block;
+				background: #111;
+				width: 44px;
+				height: 46px;
+				line-height: 46px;;
+				color: #fff;
+				position: relative;
+				padding: 5px;
+				float: left;
+				margin: 10px 10px 0 0;
+				text-align: center;
+				font-weight: bold;
+				font-family: sans-serif;
+				font-size: 20px;
+			}
+			blockquote{
+				font-family: serif;
+				color: #999;
+				font-style: italic;
+				font-size: 20px;
+			}
+			footer{
+				margin: 22px -22px -22px -22px;
+				padding: 22px;
+				background: #111;
+				color: #ccc;
+			}
+			footer a{
+				color: #ccc;
+				text-decoration: none;
+				border-bottom: 1px dotted #fff;
+			}
+
+		</style>
+	</head>
+	<body>
+
+		<section>
+			<header>
+				<h1><img src="images/abdz.svg" width="55px" style="margin-top: 10px;"/></h1>
+			</header>
+			<div class="blurheader">
+				
+			</div>
+			<article>
+				<div class="pic">
+					<img src="images/00.jpg" />
+				</div>
+				<div class="gd">
+					<h1>Beautiful Artworks on Instagram by Creative Mints</h1>
+				</div>
+				<h3>by Paul0v2</h3>
+				<p class="first">We have yet another instagram post, this time is an amazing artist & designer from Czech Republic who loves to share his works and process on instagram. Take a look at these amazing painting & Drawings and let us know what you think. </p>
+				
+				<p>For more from Creative Mints visit his Instagram instagram.com/emotionslive and art.creativemints.com.</p>
+				
+				<blockquote>My name is Mike, I'm 30, living and working in Prague, Czech Republic. I've been interested in art and design since I was a kid and I've been always looking for a way to express the emotions and feelings that surround me. I'm most fascinated and inspired by Renaissance art but I like to explore different styles – from impressionism to abstract art. I've been experimenting more lately too, looking for fresh styles and trends – for me the path of an artist is one of constant search for something new</blockquote>
+				
+				<img src="images/02.jpg" />
+				
+				<img src="images/04.jpg" />
+				
+				<img src="images/07.jpg" />
+				
+				<img src="images/11.jpg" />
+				
+				<footer>
+					<p>Created by <b><a href="http://fabiosasso.com">Fabio Sasso</a></b></p>
+					<p>Credits:</p>
+					<ul>
+						<li><a href="http://jquery.com/">jQuery</a></li>
+						<li><a href="http://html2canvas.hertzen.com">html2canvas 0.4.1</a></li>
+						<li><a href="http://www.quasimondo.com/StackBlurForCanvas">Stackblur</a></li>
+					</ul>
+				</footer>
+				
+			</article>
+		</section>
+
+	</body>
+
+</html>
